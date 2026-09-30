@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "seed": 42,
+  "sampling": {
+    "strategy": "weighted",
+    "epoch_size": 10000,
+    "replacement": true,
+    "normalize_weights": true
+  },
+  "defaults": {
+    "video_backend": "pyav",
+    "chunk_size": 50,
+    "feature_map": {
+      "state": "observation.state",
+      "action": "action",
+      "cameras": {
+        "front_camera": "observation.images.front_camera"
+      },
+      "tactile": {
+        "left_tactile_left_camera": "observation.images.left_tactile_left_camera",
+        "right_tactile_right_camera": "observation.images.right_tactile_right_camera"
+      }
+    }
+  },
+  "datasets": [
+    {
+      "name": "single_real_task",
+      "root": "/path/to/one_lerobot_v3_dataset",
+      "repo_id": "local/single_real_task",
+      "weight": 1.0
+    }
+  ]
+}

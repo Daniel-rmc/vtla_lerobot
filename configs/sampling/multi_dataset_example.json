@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "seed": 42,
+  "sampling": {
+    "strategy": "weighted",
+    "epoch_size": 100000,
+    "replacement": true,
+    "normalize_weights": true
+  },
+  "defaults": {
+    "video_backend": "pyav",
+    "chunk_size": 50,
+    "feature_map": {
+      "state": "observation.state",
+      "action": "action",
+      "cameras": {
+        "front_camera": "observation.images.front_camera",
+        "left_hand_camera": "observation.images.left_hand_camera",
+        "right_hand_camera": "observation.images.right_hand_camera"
+      },
+      "tactile": {
+        "left_tactile_left_camera": "observation.images.left_tactile_left_camera",
+        "left_tactile_right_camera": "observation.images.left_tactile_right_camera",
+        "right_tactile_left_camera": "observation.images.right_tactile_left_camera",
+        "right_tactile_right_camera": "observation.images.right_tactile_right_camera"
+      }
+    }
+  },
+  "datasets": [
+    {
+      "name": "task_a_real",
+      "root": "/path/to/task_a_lerobot_v3",
+      "repo_id": "local/task_a_real",
+      "weight": 1.0,
+      "split": "train"
+    },
+    {
+      "name": "task_b_real",
+      "root": "/path/to/task_b_lerobot_v3",
+      "repo_id": "local/task_b_real",
+      "weight": 2.0,
+      "split": "train",
+      "feature_map": {
+        "cameras": {
+          "front_camera": "observation.images.cam_high"
+        }
+      }
+    }
+  ]
+}

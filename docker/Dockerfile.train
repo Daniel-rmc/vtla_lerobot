@@ -1,0 +1,22 @@
+FROM vtla-train:lerobot-0.6.1
+
+WORKDIR /workspace/vtla_lerobot
+
+ENV PYTHONUNBUFFERED=1 \
+    TOKENIZERS_PARALLELISM=false \
+    HF_HOME=/workspace/hf_cache \
+    HUGGINGFACE_HUB_CACHE=/workspace/hf_cache/hub \
+    TRANSFORMERS_CACHE=/workspace/hf_cache/transformers \
+    VIRTUAL_ENV=/opt/venv \
+    PATH=/opt/venv/bin:$PATH \
+    PYTHONPATH=/workspace/vtla_lerobot/src:/opt/lerobot/src
+
+COPY --chown=vtla:vtla pyproject.toml README.md ./
+COPY --chown=vtla:vtla src ./src
+COPY --chown=vtla:vtla scripts ./scripts
+COPY --chown=vtla:vtla configs ./configs
+COPY --chown=vtla:vtla tests ./tests
+
+RUN uv pip install --python /opt/venv/bin/python -e .[dev]
+
+CMD ["bash"]
